@@ -41,11 +41,50 @@ const data = [
   let correctCount = 0
   let wrongCount = 0
   let total = 0
-  let selectedAnswer = 0
+  let selectedAnswer;
 
 
 const showQuestion = (qNumber) => {
+    selectedAnswer = null;
     question.textContent = data[qNumber].question
+    answerContainer.innerHTML = data[qNumber].answers.map((item, index) => 
+        `
+        <div class="answer">
+        <input name="answer" type="radio" id=${index} value=${item.isCorrect}>
+        <label for=${index}>${item.answer}</label>
+    </div>
+
+        `
+    ).join("");
+
+    selectAnswer()
+};
+
+
+// the select answer function is checking if my
+// selected answer is false of true using target.value.
+
+const selectAnswer = () => {
+    answerContainer.querySelectorAll("input").forEach(el=>{
+        el.addEventListener("click", (e)=> {
+            selectedAnswer = e.target.value;
+        })
+    })
+}
+
+
+// the submit answer function is taking the value of the imput and 
+//if its true increasing the count of correctcount and if not increasing the count of wrongcount and giving an alert is no answer is selected.
+
+const submitAnswer = () =>{
+    submit.addEventListener('click', ()=>{
+        if(selectedAnswer !== null){
+        selectedAnswer === "true" ? correctCount++ : wrongCount++
+        qIndex++
+        showQuestion(qIndex);
+        } else alert("Select an answer!");
+    })
 }
 
 showQuestion(qIndex)
+submitAnswer()
