@@ -43,8 +43,13 @@ const data = [
   let total = 0
   let selectedAnswer;
 
+  const showResult = () =>{
+    resultScreen.style.display = "block"
+    gameScreen.style.display = "none"
+  }
 
 const showQuestion = (qNumber) => {
+    if (qIndex === data.length) return showResult()
     selectedAnswer = null;
     question.textContent = data[qNumber].question
     answerContainer.innerHTML = data[qNumber].answers.map((item, index) => 
