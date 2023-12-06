@@ -43,10 +43,34 @@ const data = [
   let total = 0
   let selectedAnswer;
 
+  const playAgain = () => {
+   qIndex = 0
+   correctCount = 0
+   wrongCount = 0
+   total = 0
+  showQuestion(qIndex);
+  }
+
+  play.addEventListener("click", ()=>{
+    resultScreen.style.display = "none"
+    gameScreen.style.display = "block"
+    playAgain()
+  })
+
   const showResult = () =>{
     resultScreen.style.display = "block"
     gameScreen.style.display = "none"
-  }
+
+    resultScreen.querySelector(".correct").textContent = 
+    `Correct Answers: ${correctCount}`
+
+    resultScreen.querySelector(".wrong").textContent = 
+    `Wrong Answers: ${wrongCount}`
+
+    resultScreen.querySelector(".score").textContent = `Score: ${
+        (correctCount - wrongCount) *10
+    }`
+};
 
 const showQuestion = (qNumber) => {
     if (qIndex === data.length) return showResult()
